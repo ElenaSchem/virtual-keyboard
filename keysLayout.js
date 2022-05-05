@@ -451,3 +451,5 @@ const keysLayout = [
         },
     ],
 ];
+
+export {keysLayout as default};

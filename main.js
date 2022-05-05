@@ -90,18 +90,73 @@ const keyBoard = {
                             if (this.properties.shift) {
                                 this.properties.shift = false;
                                 this.toggleShift();
-                            };
+                            }
                             this.setCaretPosition(this.properties.lastCaretPos);
                         });
                     break;
 
 
                 }
-            })
+
+                row.appendChild(keyElement);
+            });
+            fragment.appendChild(row);
         });
+        return fragment;
+    },
 
-        // toggleShift() {
+    toggleShift() {
+        const flatKeys = keysLayout.reduce((prev, item) => prev.concat(item), []);
+        this.elements.keys.forEach((key) => {
+            if (key.childElementCount === 0) {
+                const idx = flatKeys.findIndex((el) => el.code === key.dataset.key);
+                if (this.properties.lang === 'rus') {
+                    if (this.properties.shift) {
+                        key.textContent = flatKeys[idx].alt2;
+                    } else {
+                        key.textContent = flatKeys[idx].value2;
+                    }
+                } else if (this.properties.shift) {
+                    key.textContent = flatKeys[idx].alt1;
+                } else {
+                    key.textContent = flatKeys[idx].value1;
+                }
+                // key.textContent = this.properties.shift ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+            }
+        });
+    },
 
-        // }
-    }
+    getCaretPosition() {
+        return textarea.selectionStart;
+    },
+
+    setCaretPosition(position) {
+        textarea.focus();
+        textarea.setSelectionRange(position, position);
+    },
 };
+
+window.addEventListener('DOMContentLoaded', () => {
+    generateInput();
+    keyBoard.initilize();
+});
+
+window.addEventListener('keydown', (el) => {
+    const keyobj = document.querySelector(`[data-key="${el.code}"]`);
+    if (keyobj) {
+        keyobj.classList.add('highlighted');
+    }
+    if (el.code === 'ShiftLeft' || el.code === 'ControlLeft') {
+        switchKey[el.code] = true;
+    }
+});
+
+window.addEventListener('keyup', (el) => {
+    const keyobj = document.querySelector(`[data-key="${el.code}"]`);
+    if (keyobj) {
+        keyobj.classList.remove('highlighted');
+    }
+    if (el.code === 'ShiftLeft' || el.code === 'ControlLeft') {
+        switchKey[el.code] = false;
+    }
+});
