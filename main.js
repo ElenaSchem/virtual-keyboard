@@ -1,8 +1,14 @@
 import keysLayout from './keysLayout.js'; 
 
+document.body.innerHTML = `
+    <h1 class="title">Virtual Keyboard</h1>
+    <p class="hint">Use left <kbd>Ctrl</kbd> + <kbd>Shift</kbd> to switch language</kbd></p>
+`;
+
 function generateInput() {
     let textarea = document.createElement('textarea');
-    textarea.classList.add('text-field');
+    textarea.classList.add('text-area');
+    textarea.setAttribute('placeholder', 'Start type something...');
     textarea.setAttribute('cols', '100');
     textarea.setAttribute('rows', '10');
     document.body.appendChild(textarea);
@@ -51,7 +57,7 @@ const keyBoard = {
                 switch (key.code) {
                     case 'Backspace':
                         keyElement.classList.add('backspace', 'dark');
-                        keyElement.innerHTML = '<i class = "fas fa-backspace"></i>';
+                        keyElement.innerHTML = '<span>Backspace</span><i class = "fas fa-backspace"></i>';
                         keyElement.addEventListener('click', () => {
                             textarea.value = textarea.value.substring(0, textarea.value.length - 1);
                             if (this.properties.shift) {
@@ -63,7 +69,7 @@ const keyBoard = {
 
                     case 'ShiftLeft':
                         keyElement.classList.add('double', 'dark');
-                        keyElement.innerHTML = '<i class = "fas fa-angle-up"></i>';
+                        keyElement.innerHTML = '<span>Shift</span><i class = "fas fa-angle-up"></i>';
                         keyElement.addEventListener('click', () => {
                             textarea.focus();
                             this.properties.shift = !this.properties.shift;
@@ -73,7 +79,7 @@ const keyBoard = {
 
                     case 'ShiftRight':
                         keyElement.classList.add('dark');
-                        keyElement.innerHTML = '<i class = "fas fa-angle-up"></i>';
+                        keyElement.innerHTML = '<span>Shift</span><i class = "fas fa-angle-up"></i>';
                         keyElement.addEventListener('click', () => {
                             this.properties.shift = !this.properties.shift;
                             this.toggleShift();
@@ -82,7 +88,7 @@ const keyBoard = {
 
                     case 'Enter':
                         keyElement.classList.add('double', 'dark');
-                        keyElement.innerHTML = '<i class = "fas fa-level-down-alt"></i>';
+                        keyElement.innerHTML = '<span>Enter</span>';
                         keyElement.addEventListener('click', () => {
                             const idx = this.getCaretPosition();
                             this.properties.lastCaretPos = idx + 1;
@@ -95,6 +101,133 @@ const keyBoard = {
                         });
                     break;
 
+                    case 'Tab':
+                        keyElement.classList.add('tab', 'dark');
+                        keyElement.innerHTML = '<span>Tab</span>';
+                        keyElement.addEventListener('click', () => {
+                            const idx = this.getCaretPosition();
+                            this.properties.lastCaretPos = idx + 4;
+                            textarea.value = `${textarea.value.slice(0, idx)}    ${textarea.value.slice(idx)}`;
+                            if (this.properties.shift) {
+                                this.properties.shift = false;
+                                this.toggleShift();
+                            }
+                            this.setCaretPosition(this.properties.lastCaretPos);
+                        });
+                    break;
+
+                    case 'ControlLeft':
+                    case 'ControlRight':
+                        keyElement.classList.add('ctrl', 'dark');
+                        keyElement.innerHTML = '<span>Ctrl</span>';
+                        keyElement.addEventListener('click', () => {
+                            if (this.properties.shift) {
+                                this.properties.shift = false;
+                                this.toggleShift();
+                            }
+                        });
+                    break;
+
+                    case 'AltLeft':
+                    case 'AltRight':
+                        keyElement.classList.add('dark');
+                        keyElement.innerHTML = '<span>Alt</span>';
+                        keyElement.addEventListener('click', (event) => {
+                            event.prevenDefault();
+                            if (this.properties.shift) {
+                                this.properties.shift = false;
+                                this.toggleShift();
+                            }
+                        });
+                    break;
+
+                    case 'Space':
+                        keyElement.classList.add('space');
+                        keyElement.addEventListener('click', () => {
+                            const idx = this.getCaretPosition();
+                            this.properties.lastCaretPos = idx + 1;
+                            textarea.value = `${textarea.value.slice(0, idx)} ${textarea.value.slice(idx)}`;
+                            if (this.properties.shift) {
+                                this.properties.shift = false;
+                                this.toggleShift();
+                            }
+                            this.setCaretPosition(this.properties.lastCaretPos);
+                        });
+                    break;
+
+                    case 'MetaLeft':
+                        keyElement.classList.add('dark');
+                        keyElement.innerHTML = '<i class="fab fa-windows"></i>';
+                        keyElement.addEventListener('click', () => {
+                            if (this.properties.shift) {
+                                this.properties.shift = false;
+                                this.toggleShift();
+                            }
+                        });
+                    break;
+
+                    case 'CapsLock':
+                        keyElement.classList.add('double', 'dark');
+                        keyElement.innerHTML = '<span>Caps Lock</span>';
+                        keyElement.addEventListener('click', () => {
+                            textarea.focus();
+                            this.toggleCapsLock();
+                            if (this.properties.shift) {
+                                this.properties.shift = false;
+                                this.toggleShift();
+                            }
+                        });
+                    break;
+
+                    case 'ArrowUp':
+                        keyElement.classList.add('dark');
+                        keyElement.innerHTML = '<i class="fas fa-arrow-up"></i>';
+                        keyElement.addEventListener('click', () => {
+                            if (this.properties.shift) {
+                                this.properties.shift = false;
+                                this.toggleShift();
+                            }
+                            // const 
+                        });
+                    break;
+
+                    case 'ArrowLeft':
+                        keyElement.classList.add('dark');
+                        keyElement.innerHTML = '<i class="fas fa-arrow-left"></i>';
+                        keyElement.addEventListener('click', () => {
+                            if (this.properties.shift) {
+                                this.properties.shift = false;
+                                this.toggleShift();
+                            }
+                            // const 
+                        });
+                    break;
+
+                    case 'ArrowDown':
+                        keyElement.classList.add('dark');
+                        keyElement.innerHTML = '<i class="fas fa-arrow-down"></i>';
+                        keyElement.addEventListener('click', () => {
+                            if (this.properties.shift) {
+                                this.properties.shift = false;
+                                this.toggleShift();
+                            }
+                            // const 
+                        });
+                    break;
+
+                    case 'ArrowRight':
+                        keyElement.classList.add('dark');
+                        keyElement.innerHTML = '<i class="fas fa-arrow-right"></i>';
+                        keyElement.addEventListener('click', () => {
+                            if (this.properties.shift) {
+                                this.properties.shift = false;
+                                this.toggleShift();
+                            }
+                            // const 
+                        });
+                    break;
+
+                    // default:
 
                 }
 
@@ -122,6 +255,15 @@ const keyBoard = {
                     key.textContent = flatKeys[idx].value1;
                 }
                 // key.textContent = this.properties.shift ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
+            }
+        });
+    },
+
+    toggleCapsLock() {
+        this.properties.capslock = !this.properties.capslock;
+        this.elements.keys.forEach((key) => {
+            if (key.childElementCount === 0) {
+                key.textContent = this.properties.capslock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
             }
         });
     },

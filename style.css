@@ -1,0 +1,72 @@
+body {
+    margin: 0 auto;
+}
+
+h1, p {
+    text-align: center;
+}
+
+.text-area {
+    display: block;
+    width: 750px;
+    margin: 20px auto 10px;
+    padding: 5px;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.keyboard {
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.key {
+    width: 40px;
+    height: 40px;
+    border: 1px solid blue;
+    border-radius: 5px;
+    background: none;
+    transition: all 0.3s;
+}
+
+.key:hover {
+    background: aqua;
+}
+
+.key:active {
+    transform: scale(0.6);
+}
+
+.dark {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.backspace {
+    width: 76px;
+}
+
+.double {
+    width: 80px;
+}
+
+.ctrl {
+    width: 60px;
+}
+
+.tab {
+    width: 50px;
+}
+
+.space {
+    width: 280px;
+}
+
+.highlighted {
+    background: slateblue;
+}
