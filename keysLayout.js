@@ -18,7 +18,7 @@ const keysLayout = [
             value1: '2',
             value2: '2',
             alt1: '@',
-            alt2: '"',
+            alt2: '@',
             code: 'Digit2',
         },
         {
@@ -197,6 +197,13 @@ const keysLayout = [
             alt1: '|',
             alt2: '/',
             code: 'Backslash',
+        },
+        {
+            value1: '',
+            value2: '',
+            alt1: null,
+            alt2: null,
+            code: 'Delete',
         },
     ],
     [
@@ -426,13 +433,6 @@ const keysLayout = [
             value2: '',
             alt1: null,
             alt2: null,
-            code: 'ControlLeft',
-        },
-        {
-            value1: '',
-            value2: '',
-            alt1: null,
-            alt2: null,
             code: 'ArrowLeft',
         },
         {
@@ -448,6 +448,13 @@ const keysLayout = [
             alt1: null,
             alt2: null,
             code: 'ArrowRight',
+        },
+        {
+            value1: '',
+            value2: '',
+            alt1: null,
+            alt2: null,
+            code: 'ControlRight',
         },
     ],
 ];

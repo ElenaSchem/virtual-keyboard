@@ -22,21 +22,25 @@ h1, p {
 
 .keyboard-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 5px;
+    column-gap: 5px;
 }
 
 .key {
-    width: 40px;
-    height: 40px;
-    border: 1px solid blue;
+    width: 48px;
+    height: 44px;
+    border: 1px solid yellow;
     border-radius: 5px;
-    background: none;
+    background: black;
+    font-size: 16px;
+    color: yellow;
     transition: all 0.3s;
+    cursor: pointer;
 }
 
 .key:hover {
-    background: aqua;
+    background: orange;
 }
 
 .key:active {
@@ -44,29 +48,46 @@ h1, p {
 }
 
 .dark {
+    font-size: 13px;
     background: rgba(0, 0, 0, 0.5);
 }
 
 .backspace {
-    width: 76px;
+    width: 90px;
 }
 
 .double {
-    width: 80px;
+    width: 82px;
+}
+
+.enter {
+    width: 90px;
+}
+
+.shift {
+    width: 118px;
+}
+
+.shift > span {
+    margin-right: 10px;
 }
 
 .ctrl {
-    width: 60px;
+    width: 82px;
 }
 
-.tab {
+.ctrl[data-key=ControlRight] {
     width: 50px;
 }
 
+.tab {
+    width: 60px;
+}
+
 .space {
-    width: 280px;
+    width: 292px;
 }
 
 .highlighted {
-    background: slateblue;
+    background: orangered;
 }
